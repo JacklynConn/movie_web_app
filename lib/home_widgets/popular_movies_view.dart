@@ -11,6 +11,8 @@ class PopularMoviesView extends StatefulWidget {
 }
 
 class _PopularMoviesViewState extends State<PopularMoviesView> {
+  int? hoverIndex;
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -23,28 +25,81 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
         final movie = widget.popularMovies[index];
         return MouseRegion(
           onEnter: (_) {
-            setState(() {
-
-            });
+            setState(() {});
           },
           onExit: (_) {
-            setState(() {
-
-            });
+            setState(() {});
           },
           onHover: (_) {
-            setState(() {
-
-            });
+            setState(() {});
           },
-          child: AnimatedContainer(duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            transform: hoverIndex == index
+                ? (Matrix4.identity()
+                  ..scale(1.05, 1.05)
+                  ..translate(0, -10))
+                : Matrix4.identity(),
+            child: GestureDetector(
+              onTap: () {
+                // Navigator.pushNamed(context, '/movie/${movie.id}');
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  elevation: hoverIndex == index ? 20 : 4,
+                  color: Colors.transparent,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                          ),
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 200,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            Text(
+                              movie.title,
+                              style: const TextStyle(
+                                color: Color(0xFFE2B616),
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              maxLines: 2,
+                            ),
+                            Row(
+                              children: [
+                                const Icon(Icons.star, color: Colors.amber),
+                                const SizedBox(width: 5),
+                                Text(movie.voteAverage.toString())
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Language: ${movie.originalLanguage}',
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            Text('Adult: ${movie.adult ? 'Yes' : 'No'}'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                fit: BoxFit.cover,
               ),
             ),
           ),
