@@ -22,6 +22,42 @@ class CustomNavbar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
+          const SizedBox(width: 15),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.55,
+            height: 40,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w400,
+                        // fontStyle: FontStyle.italic,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Search...',
+                        prefixIcon: const Icon(
+                          Icons.clear,
+                          color: Colors.grey,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.cancel, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
