@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/home_widgets/custom_carousel_slider.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
 import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Movie> topRatedMovies = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -26,7 +28,10 @@ class _HomePageState extends State<HomePage> {
 
   getData() async {
     topRatedMovies = await MovieServices().fetchTopRatedMovies();
-    debugPrint(topRatedMovies[0].title);
+    setState(() {
+      isLoading = false;
+    });
+    // debugPrint(topRatedMovies[0].title);
   }
 
   @override
@@ -51,18 +56,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             // SizedBox(height: 10),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   flex: 2,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: CarouselSkeleton(),
+                    padding: const EdgeInsets.only(left: 16),
+                    child: isLoading
+                        ? const CarouselSkeleton()
+                        : CustomCarouselSlider(topRatedMovies: topRatedMovies),
                   ),
                 ),
-                SizedBox(width: 20),
-                Flexible(
+                const SizedBox(width: 20),
+                const Flexible(
                   flex: 1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
