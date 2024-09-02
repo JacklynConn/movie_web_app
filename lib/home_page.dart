@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_app/widgets/carousel_skeleton.dart';
+import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
+import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -32,7 +33,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 16),
-            CarouselSkeleton(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  flex: 2,
+                  child: CarouselSkeleton(),
+                ),
+                SizedBox(width: 20),
+                Flexible(
+                  flex: 1,
+                  child: NowPlayingSkeleton(),
+                ),
+              ],
+            ),
           ],
         ),
       ),
