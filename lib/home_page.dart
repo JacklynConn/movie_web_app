@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
+import 'package:flutter_web_app/widgets/skeleton/footer.dart';
 import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
 import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  double gridHeight = (constraints.maxWidth / 5) * 1.4 * 3;
+                  double gridHeight = (constraints.maxWidth / 4) * 1.4 * 3;
                   return SizedBox(
                     height: gridHeight,
                     child: const PopularMoviesSkeleton(),
@@ -95,6 +96,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            const SizedBox(height: 8),
+            const Footer(),
           ],
         ),
       ),

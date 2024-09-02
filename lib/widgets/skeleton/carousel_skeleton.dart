@@ -13,7 +13,7 @@ class CarouselSkeleton extends StatelessWidget {
           5,
           (index) => Container(
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.grey[800],
               borderRadius: BorderRadius.circular(10),
             ),
           ),
