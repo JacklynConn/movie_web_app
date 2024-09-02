@@ -10,6 +10,7 @@ import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
 import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
 import 'home_widgets/now_playing_list.dart';
+import 'home_widgets/popular_movies_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Movie> topRatedMovies = [];
   List<Movie> nowPlayingMovies = [];
+  List<Movie> popularMovies = [];
   bool isLoading = true;
 
   @override
@@ -30,8 +32,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   getData() async {
-    topRatedMovies = await MovieServices().fetchTopRatedMovies();
-    nowPlayingMovies = await MovieServices().fetchNowPlayingMovies();
+    MovieServices movieServices = MovieServices();
+    topRatedMovies = await movieServices.fetchTopRatedMovies();
+    nowPlayingMovies = await movieServices.fetchNowPlayingMovies();
+    popularMovies = await movieServices.fetchPopularMovies();
     setState(() {
       isLoading = false;
     });
@@ -64,7 +68,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                  flex: 3,
+                  flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16),
                     child: isLoading
@@ -74,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(width: 20),
                 Flexible(
-                  flex: 2,
+                  flex: 1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -96,7 +100,8 @@ class _HomePageState extends State<HomePage> {
                         height: 470,
                         child: isLoading
                             ? const NowPlayingSkeleton()
-                            : NowPlayingList(nowPlayingMovies: nowPlayingMovies),
+                            : NowPlayingList(
+                                nowPlayingMovies: nowPlayingMovies),
                       ),
                     ],
                   ),
@@ -117,15 +122,18 @@ class _HomePageState extends State<HomePage> {
             // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  double gridHeight = (constraints.maxWidth / 4) * 1.4 * 3;
-                  return SizedBox(
-                    height: gridHeight,
-                    child: const PopularMoviesSkeleton(),
-                  );
-                },
-              ),
+              child: isLoading
+                  ? LayoutBuilder(
+                      builder: (context, constraints) {
+                        double gridHeight =
+                            (constraints.maxWidth / 4) * 1.4 * 3;
+                        return SizedBox(
+                          height: gridHeight,
+                          child: const PopularMoviesSkeleton(),
+                        );
+                      },
+                    )
+                  : PopularMoviesView(popularMovies: popularMovies),
             ),
             const SizedBox(height: 8),
             const Footer(),
