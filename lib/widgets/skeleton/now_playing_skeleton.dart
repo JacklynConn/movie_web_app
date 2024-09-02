@@ -10,7 +10,7 @@ class NowPlayingSkeleton extends StatelessWidget {
       child: ListView.builder(
         shrinkWrap: true,
         physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: 7,
+        itemCount: 6,
         itemBuilder: (context, index) {
           return ListTile(
             leading: Container(

@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
@@ -32,20 +33,52 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            // SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
                   flex: 2,
-                  child: CarouselSkeleton(),
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: CarouselSkeleton(),
+                  ),
                 ),
                 SizedBox(width: 20),
                 Flexible(
                   flex: 1,
-                  child: NowPlayingSkeleton(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Text(
+                          'Now Playing',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFE2B616),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      NowPlayingSkeleton(),
+                    ],
+                  ),
                 ),
               ],
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Text(
+                'Explore Popular Movies',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE2B616),
+                ),
+              ),
             ),
           ],
         ),
