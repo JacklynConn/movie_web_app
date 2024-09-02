@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/models/movie_model.dart';
+import 'package:flutter_web_app/services/movie_services.dart';
 import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
@@ -14,6 +16,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Movie> topRatedMovies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    topRatedMovies = await MovieServices().fetchTopRatedMovies();
+    debugPrint(topRatedMovies[0].title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

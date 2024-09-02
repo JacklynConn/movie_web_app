@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +12,55 @@ class MovieServices {
 
   Future<List<Movie>> fetchTopRatedMovies() async {
     final response = await http.get(
-        Uri.parse('${baseUrl}top_rated?language=en-US&page=1'),
-        headers: headers);
+      Uri.parse('${baseUrl}top_rated?language=en-US&page=1'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      // debugPrint(response.body);
+      return ((jsonDecode(response.body)['results']) as List)
+          .map((data) => Movie.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to fetch top rated movies');
+    }
+  }
+
+  Future<List<Movie>> fetchUpComingMovies() async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}upcoming?language=en-US&page=1'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      return ((jsonDecode(response.body)['results']) as List)
+          .map((data) => Movie.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to fetch top rated movies');
+    }
+  }
+
+  Future<List<Movie>> fetchNowPlayingMovies() async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}now_playing?language=en-US&page=1'),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      return ((jsonDecode(response.body)['results']) as List)
+          .map((data) => Movie.fromJson(data))
+          .toList();
+    } else {
+      throw Exception('Failed to fetch top rated movies');
+    }
+  }
+
+  Future<List<Movie>> fetchPopularMovies() async {
+    final response = await http.get(
+      Uri.parse('${baseUrl}popular?language=en-US&page=1'),
+      headers: headers,
+    );
 
     if (response.statusCode == 200) {
       return ((jsonDecode(response.body)['results']) as List)
