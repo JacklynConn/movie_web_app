@@ -7,7 +7,7 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -20,7 +20,7 @@ class Footer extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 onPressed: () {},
@@ -37,14 +37,63 @@ class Footer extends StatelessWidget {
                 color: Colors.grey[400],
                 tooltip: 'Twitter',
               ),
-              Text(
-                'Made with ❤️ by Flutter Devs',
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: 16,
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.image,
+                ),
+                color: Colors.grey[400],
+                tooltip: 'Instagram',
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.video_library,
+                ),
+                color: Colors.grey[400],
+                tooltip: 'YouTube',
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 16,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'About Us',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Privacy Policy',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Terms of Service',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                  ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'This product uses the TMDb API but is not endorsed or certified by TMDb. Made with ❤️ by Flutter.',
+            style: TextStyle(
+              color: Colors.grey[400],
+            ),
           ),
         ],
       ),
