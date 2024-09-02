@@ -3,6 +3,7 @@ import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
 import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
+import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,15 +15,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      drawer: CustomDrawer(),
-      appBar: CustomNavbar(),
+    return Scaffold(
+      drawer: const CustomDrawer(),
+      appBar: const CustomNavbar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16),
-            Padding(
+            const SizedBox(height: 16),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
                 'Top Rated Movies',
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             // SizedBox(height: 10),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
@@ -52,7 +53,8 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         child: Text(
                           'Now Playing',
                           style: TextStyle(
@@ -69,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
                 'Explore Popular Movies',
@@ -78,6 +80,19 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFE2B616),
                 ),
+              ),
+            ),
+            // SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  double gridHeight = (constraints.maxWidth / 5) * 1.4 * 3;
+                  return SizedBox(
+                    height: gridHeight,
+                    child: const PopularMoviesSkeleton(),
+                  );
+                },
               ),
             ),
           ],
