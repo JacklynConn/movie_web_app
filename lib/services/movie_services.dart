@@ -112,7 +112,7 @@ class MovieServices {
       );
 
       if (response.statusCode == 200) {
-        print(response.body);
+        // print(response.body);
         return ((jsonDecode(response.body)['results']) as List)
             .map((data) => Movie.fromJson(data))
             .toList();

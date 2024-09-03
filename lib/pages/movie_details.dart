@@ -37,97 +37,46 @@ class _MovieDetailsState extends State<MovieDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomNavbar(),
-      drawer: CustomDrawer(),
+      appBar: const CustomNavbar(),
+      drawer: const CustomDrawer(),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          movieDetails.title,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+          : (movieDetails != null)
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 400,
+                        child: Stack(
+                          children: [
+                            Image.network(
+                              'https://image.tmdb.org/t/p/w500/${movieDetails.posterPath}',
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black,
+                                    Colors.transparent,
+                                  ],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          movieDetails.overview,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Release Date: ${movieDetails.releaseDate}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Rating: ${movieDetails.voteAverage}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      'Similar Movies',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: similarMovies.length,
-                      itemBuilder: (context, index) {
-                        final movie = similarMovies[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                movie.title,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                )
+              : const Center(
+                  child: Text('No Data'),
+                ),
     );
   }
 }
