@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/responsive.dart';
 import 'package:go_router/go_router.dart';
-import '../models/movie_model.dart';
+import '../../models/movie_model.dart';
 
 class PopularMoviesView extends StatefulWidget {
   final List<Movie> popularMovies;
@@ -17,9 +18,15 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.popularMovies.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: const Responsive().isMobile(context)
+            ? 2
+            : const Responsive().isTablet(context)
+                ? 3
+                : 5,
         childAspectRatio: 0.8,
       ),
       itemBuilder: (context, index) {

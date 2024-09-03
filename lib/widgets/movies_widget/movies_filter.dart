@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/movie_model.dart';
+import '../../models/movie_model.dart';
 
 class MoviesFilter extends StatefulWidget {
   final List<Movie> topRatedMovies;

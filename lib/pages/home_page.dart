@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_app/home_widgets/custom_carousel_slider.dart';
+import 'package:flutter_web_app/widgets/home_widgets/custom_carousel_slider.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
 import 'package:flutter_web_app/widgets/skeleton/carousel_skeleton.dart';
@@ -8,9 +8,8 @@ import 'package:flutter_web_app/widgets/navbar.dart';
 import 'package:flutter_web_app/widgets/skeleton/footer.dart';
 import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
 import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
-
-import '../home_widgets/now_playing_list.dart';
-import '../home_widgets/popular_movies_view.dart';
+import '../widgets/home_widgets/now_playing_list.dart';
+import '../widgets/home_widgets/popular_movies_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -5,9 +5,9 @@ import 'package:flutter_web_app/widgets/navbar.dart';
 import 'package:flutter_web_app/widgets/skeleton/footer.dart';
 import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
-import '../home_widgets/popular_movies_view.dart';
+import '../widgets/home_widgets/popular_movies_view.dart';
 import '../models/movie_model.dart';
-import '../movies_widget/movies_filter.dart';
+import '../widgets/movies_widget/movies_filter.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/responsive.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
 
-import '../home_widgets/popular_movies_view.dart';
+import '../widgets/home_widgets/popular_movies_view.dart';
 import '../models/movie_model.dart';
 import '../services/movie_services.dart';
 import '../widgets/skeleton/footer.dart';
@@ -38,6 +39,17 @@ class _MovieDetailsState extends State<MovieDetails> {
   }
 
   @override
+  void didUpdateWidget(covariant MovieDetails oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.movieId != widget.movieId) {
+      setState(() {
+        isLoading = true;
+      });
+      getData();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomNavbar(),
@@ -51,7 +63,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 2000,
+                        height: const Responsive().isMobile(context) ? 1100 : 2000,
                         child: Stack(
                           children: [
                             Column(
@@ -138,10 +150,11 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                   ),
                                                   const SizedBox(width: 5),
                                                   SizedBox(
-                                                    width: 110,
+                                                    width: 100,
                                                     child: Text(
                                                       'Popularity: ${movieDetails.popularity}',
-                                                      overflow: TextOverflow.ellipsis,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                   ),
                                                 ],
@@ -152,7 +165,10 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
+                                                maxLines: 3,
                                               ),
                                               const SizedBox(height: 10),
                                               Text(
