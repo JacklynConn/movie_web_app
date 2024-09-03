@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_app/responsive.dart';
 import 'package:flutter_web_app/widgets/home_widgets/custom_carousel_slider.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
@@ -52,115 +51,66 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 16),
-            const Responsive().isDesktop(context)
-                ? const Padding(
-                    padding: EdgeInsets.only(left: 40),
-                    child: Text(
-                      'Top Rated Movies',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFE2B616),
-                      ),
-                    ),
-                  )
-                : const Padding(
-                    padding: EdgeInsets.only(left: 20),
-                    child: Text(
-                      'Top Rated Movies',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFE2B616),
-                      ),
-                    ),
-                  ),
-            const SizedBox(height: 10),
+            const Padding(
+              padding: EdgeInsets.only(left: 40),
+              child: Text(
+                'Top Rated Movies',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE2B616),
+                ),
+              ),
+            ),
+            // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: const Responsive().isDesktop(context)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: isLoading
+                          ? const CarouselSkeleton()
+                          : CustomCarouselSlider(
+                              topRatedMovies: topRatedMovies),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Flexible(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Flexible(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16),
-                            child: isLoading
-                                ? const CarouselSkeleton()
-                                : CustomCarouselSlider(
-                                    topRatedMovies: topRatedMovies),
+                        const Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          child: Text(
+                            'Now Playing',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFE2B616),
+                            ),
                           ),
                         ),
-                        const SizedBox(width: 20),
-                        Flexible(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                child: Text(
-                                  'Now Playing',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFE2B616),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 470,
-                                child: isLoading
-                                    ? const NowPlayingSkeleton()
-                                    : NowPlayingList(
-                                        nowPlayingMovies: nowPlayingMovies),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      children: [
-                        isLoading
-                            ? const CarouselSkeleton()
-                            : CustomCarouselSlider(
-                                topRatedMovies: topRatedMovies,
-                              ),
-                        const SizedBox(height: 15),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Now Playing',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFFE2B616),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 470,
-                                child: isLoading
-                                    ? const NowPlayingSkeleton()
-                                    : NowPlayingList(
-                                        nowPlayingMovies: nowPlayingMovies),
-                              ),
-                            ],
-                          ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 470,
+                          child: isLoading
+                              ? const NowPlayingSkeleton()
+                              : NowPlayingList(
+                                  nowPlayingMovies: nowPlayingMovies),
                         ),
                       ],
                     ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.only(left: 40),
               child: Text(
@@ -172,16 +122,35 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  return isLoading
-                      ? const PopularMoviesSkeleton()
-                      : MovieGridView(movies: popularMovies);
-                },
-              ),
+              child: isLoading
+                  ? LayoutBuilder(
+                      builder: (context, constraints) {
+                        double gridHeight =
+                            (constraints.maxWidth / 5) * 1.25 * 3;
+                        return SizedBox(
+                          height: gridHeight,
+                          child: isLoading
+                              ? const PopularMoviesSkeleton()
+                              : PopularMoviesView(popularMovies: popularMovies),
+                        );
+                      },
+                    )
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        double gridHeight = (constraints.maxWidth / 5) *
+                            1.25 *
+                            (popularMovies.length / 5);
+                        return SizedBox(
+                          height: gridHeight,
+                          child: isLoading
+                              ? const PopularMoviesSkeleton()
+                              : PopularMoviesView(popularMovies: popularMovies),
+                        );
+                      },
+                    ),
             ),
             const SizedBox(height: 8),
             const Footer(),

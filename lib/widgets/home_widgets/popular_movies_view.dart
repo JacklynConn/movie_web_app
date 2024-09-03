@@ -3,16 +3,16 @@ import 'package:flutter_web_app/responsive.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/movie_model.dart';
 
-class MovieGridView extends StatefulWidget {
-  final List<Movie> movies;
+class PopularMoviesView extends StatefulWidget {
+  final List<Movie> popularMovies;
 
-  const MovieGridView({super.key, required this.movies});
+  const PopularMoviesView({super.key, required this.popularMovies});
 
   @override
-  State<MovieGridView> createState() => _MovieGridViewState();
+  State<PopularMoviesView> createState() => _PopularMoviesViewState();
 }
 
-class _MovieGridViewState extends State<MovieGridView> {
+class _PopularMoviesViewState extends State<PopularMoviesView> {
   int? hoverIndex;
 
   @override
@@ -20,17 +20,17 @@ class _MovieGridViewState extends State<MovieGridView> {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.movies.length,
+      itemCount: widget.popularMovies.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: const Responsive().isMobile(context)
             ? 2
             : const Responsive().isTablet(context)
                 ? 3
                 : 5,
-        childAspectRatio: const Responsive().isMobile(context) ? 0.7 : 0.8,
+        childAspectRatio: 0.8,
       ),
       itemBuilder: (context, index) {
-        final movie = widget.movies[index];
+        final movie = widget.popularMovies[index];
         return MouseRegion(
           onEnter: (_) {
             setState(() {

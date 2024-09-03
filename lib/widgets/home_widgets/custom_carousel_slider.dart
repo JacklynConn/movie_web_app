@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_app/main.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
-import 'package:flutter_web_app/responsive.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
@@ -33,7 +32,7 @@ class CustomCarouselSlider extends StatelessWidget {
           )
           .toList(),
       options: CarouselOptions(
-        height: const Responsive().isMobile(context) ? 400 : 500,
+        height: 500,
         autoPlay: true,
         aspectRatio: 16 / 9,
         autoPlayCurve: Curves.fastOutSlowIn,

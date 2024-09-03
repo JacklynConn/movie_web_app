@@ -63,7 +63,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 3600,
+                        height: const Responsive().isMobile(context) ? 1100 : 2000,
                         child: Stack(
                           children: [
                             Column(
@@ -110,6 +110,8 @@ class _MovieDetailsState extends State<MovieDetails> {
                                         child: Image.network(
                                           'https://image.tmdb.org/t/p/w200${movieDetails.posterPath}',
                                           width: 150,
+                                          // height: 200,
+                                          // fit: BoxFit.cover,
                                         ),
                                       ),
                                       const SizedBox(width: 16),
@@ -131,72 +133,32 @@ class _MovieDetailsState extends State<MovieDetails> {
                                               Text(
                                                   'Release Date: ${movieDetails.releaseDate}'),
                                               const SizedBox(height: 10),
-                                              const Responsive()
-                                                      .isMobile(context)
-                                                  ? Column(
-                                                      children: [
-                                                        Row(
-                                                          children: [
-                                                            const Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  Colors.yellow,
-                                                            ),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            Text(
-                                                              'Vote Count: ${movieDetails.voteCount}',
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                            height: 10),
-                                                        Row(
-                                                          children: [
-                                                            const Icon(
-                                                              Icons.trending_up,
-                                                              color:
-                                                                  Colors.orange,
-                                                            ),
-                                                            const SizedBox(
-                                                                width: 5),
-                                                            Text(
-                                                              'Popularity: ${movieDetails.popularity}',
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    )
-                                                  : Row(
-                                                      children: [
-                                                        const Icon(
-                                                          Icons.star,
-                                                          color: Colors.yellow,
-                                                        ),
-                                                        const SizedBox(
-                                                            width: 5),
-                                                        Text(
-                                                          'Vote Count: ${movieDetails.voteCount}',
-                                                        ),
-                                                        const SizedBox(
-                                                            width: 10),
-                                                        const Icon(
-                                                          Icons.trending_up,
-                                                          color: Colors.orange,
-                                                        ),
-                                                        const SizedBox(
-                                                            width: 5),
-                                                        SizedBox(
-                                                          width: 100,
-                                                          child: Text(
-                                                            'Popularity: ${movieDetails.popularity}',
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                      ],
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Text(
+                                                    'Vote Count: ${movieDetails.voteCount}',
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  const Icon(
+                                                    Icons.trending_up,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  SizedBox(
+                                                    width: 100,
+                                                    child: Text(
+                                                      'Popularity: ${movieDetails.popularity}',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
+                                                  ),
+                                                ],
+                                              ),
                                               const SizedBox(height: 10),
                                               Text(
                                                 movieDetails.overview,
@@ -243,15 +205,34 @@ class _MovieDetailsState extends State<MovieDetails> {
                                       ),
                                     ),
                                   ),
-                                  LayoutBuilder(
-                                    builder: (context, constraints) {
-                                      return isLoading
-                                          ? const PopularMoviesSkeleton()
-                                          : MovieGridView(
-                                              movies: similarMovies,
+                                  isLoading
+                                      ? LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            double gridHeight =
+                                                (constraints.maxWidth / 5) *
+                                                    1.25 *
+                                                    3;
+                                            return SizedBox(
+                                              height: gridHeight,
+                                              child:
+                                                  const PopularMoviesSkeleton(),
                                             );
-                                    },
-                                  ),
+                                          },
+                                        )
+                                      : LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            double gridHeight =
+                                                (constraints.maxWidth / 5) *
+                                                    1.25 *
+                                                    (similarMovies.length / 5);
+                                            return SizedBox(
+                                              height: gridHeight,
+                                              child: PopularMoviesView(
+                                                popularMovies: similarMovies,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                 ],
                               ),
                             ),
