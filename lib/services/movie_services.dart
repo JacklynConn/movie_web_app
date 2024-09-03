@@ -11,78 +11,98 @@ class MovieServices {
   };
 
   Future<List<Movie>> fetchTopRatedMovies() async {
-    final response = await http.get(
-      Uri.parse('${baseUrl}top_rated?language=en-US&page=1'),
-      headers: headers,
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${baseUrl}top_rated?language=en-US&page=1'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      // debugPrint(response.body);
-      return ((jsonDecode(response.body)['results']) as List)
-          .map((data) => Movie.fromJson(data))
-          .toList();
-    } else {
+      if (response.statusCode == 200) {
+        // debugPrint(response.body);
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
       throw Exception('Failed to fetch top rated movies');
     }
   }
 
   Future<List<Movie>> fetchUpComingMovies() async {
-    final response = await http.get(
-      Uri.parse('${baseUrl}upcoming?language=en-US&page=1'),
-      headers: headers,
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${baseUrl}upcoming?language=en-US&page=1'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      return ((jsonDecode(response.body)['results']) as List)
-          .map((data) => Movie.fromJson(data))
-          .toList();
-    } else {
+      if (response.statusCode == 200) {
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
       throw Exception('Failed to fetch top rated movies');
     }
   }
 
   Future<List<Movie>> fetchNowPlayingMovies() async {
-    final response = await http.get(
-      Uri.parse('${baseUrl}now_playing?language=en-US&page=1'),
-      headers: headers,
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${baseUrl}now_playing?language=en-US&page=1'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      return ((jsonDecode(response.body)['results']) as List)
-          .map((data) => Movie.fromJson(data))
-          .toList();
-    } else {
+      if (response.statusCode == 200) {
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
       throw Exception('Failed to fetch top rated movies');
     }
   }
 
   Future<List<Movie>> fetchPopularMovies() async {
-    final response = await http.get(
-      Uri.parse('${baseUrl}popular?language=en-US&page=1'),
-      headers: headers,
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('${baseUrl}popular?language=en-US&page=1'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      return ((jsonDecode(response.body)['results']) as List)
-          .map((data) => Movie.fromJson(data))
-          .toList();
-    } else {
+      if (response.statusCode == 200) {
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
       throw Exception('Failed to fetch top rated movies');
     }
   }
 
   Future<List<Movie>> searchMovies(String query) async {
-    final response = await http.get(
-      Uri.parse('${baseUrl}search/movie?query=$query&include_adult=false&language=en-US&page=1'),
-      headers: headers,
-    );
+    try {
+      final response = await http.get(
+        Uri.parse('https://api.themoviedb.org/3/search/movie?query=$query'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      return ((jsonDecode(response.body)['results']) as List)
-          .map((data) => Movie.fromJson(data))
-          .toList();
-    } else {
-      throw Exception('Failed to fetch top rated movies');
+      if (response.statusCode == 200) {
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to search movies');
+      }
+    } catch (e) {
+      throw Exception('Failed to search movies');
     }
   }
 }

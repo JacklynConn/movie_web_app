@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
+import 'package:flutter_web_app/widgets/skeleton/footer.dart';
 
 class SearchPage extends StatefulWidget {
   final String query;
@@ -17,7 +18,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }
@@ -61,8 +61,8 @@ class _SearchPageState extends State<SearchPage> {
                             child: Row(
                               children: [
                                 Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie.popularity}',
-                                  width: 100,
+                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                  width: 120,
                                   height: 150,
                                   fit: BoxFit.cover,
                                 ),
@@ -76,6 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                                         movie.title,
                                         style: const TextStyle(
                                           fontSize: 18,
+                                          color: Color(0xFFE2B616),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -85,6 +86,39 @@ class _SearchPageState extends State<SearchPage> {
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                       ),
+                                      const SizedBox(height: 10),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star,
+                                              color: Colors.yellow,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              'Vote Count: ${movie.voteCount}',
+                                            ),
+                                            const SizedBox(width: 10),
+                                            const Icon(
+                                              Icons.trending_up,
+                                              color: Colors.orange,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                                'Popularity: ${movie.popularity}'),
+                                            const SizedBox(width: 10),
+                                            const Icon(
+                                              Icons.calendar_today,
+                                              color: Colors.blue,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            Text(
+                                              'Release Date: ${movie.releaseDate}',
+                                            ),
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -95,6 +129,7 @@ class _SearchPageState extends State<SearchPage> {
                       );
                     },
                   ),
+                  const Footer(),
                 ],
               ),
             ),

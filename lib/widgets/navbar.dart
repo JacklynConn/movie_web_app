@@ -41,8 +41,8 @@ class CustomNavbar extends StatelessWidget implements PreferredSizeWidget {
                         fontWeight: FontWeight.w400,
                         // fontStyle: FontStyle.italic,
                       ),
-                      onSubmitted: (value) {
-                        context.go('/search_page');
+                      onSubmitted: (String value) {
+                        context.go('/search/$value');
                       },
                       decoration: InputDecoration(
                         border: InputBorder.none,
