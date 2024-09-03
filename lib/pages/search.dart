@@ -65,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                             child: Row(
                               children: [
                                 Image.network(
-                                  'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                  'https://image.tmdb.org/t/p/w200${movie.posterPath}',
                                   width: 120,
                                   height: 150,
                                   fit: BoxFit.cover,

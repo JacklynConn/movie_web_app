@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../models/movie_model.dart';
 
 class PopularMoviesView extends StatefulWidget {
@@ -48,7 +49,7 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
                 : Matrix4.identity(),
             child: GestureDetector(
               onTap: () {
-                // Navigator.pushNamed(context, '/movie/${movie.id}');
+                context.go('/movie/${movie.id}');
               },
               child: Container(
                 padding: const EdgeInsets.all(10),

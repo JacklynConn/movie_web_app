@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/main.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
   final List<Movie> topRatedMovies;
@@ -15,7 +17,7 @@ class CustomCarouselSlider extends StatelessWidget {
             (movie) => Builder(builder: (BuildContext context) {
               return GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, '/movie/${movie.id}');
+                  context.go('/movie/${movie.id}');
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
 
+import '../home_widgets/popular_movies_view.dart';
 import '../models/movie_model.dart';
 import '../services/movie_services.dart';
+import '../widgets/skeleton/footer.dart';
+import '../widgets/skeleton/popular_movies_skeleton.dart';
 
 class MovieDetails extends StatefulWidget {
   final String movieId;
@@ -48,7 +51,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 3000,
+                        height: 2000,
                         child: Stack(
                           children: [
                             Column(
@@ -93,7 +96,7 @@ class _MovieDetailsState extends State<MovieDetails> {
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.network(
-                                          'https://image.tmdb.org/t/p/w500${movieDetails.posterPath}',
+                                          'https://image.tmdb.org/t/p/w200${movieDetails.posterPath}',
                                           width: 150,
                                           // height: 200,
                                           // fit: BoxFit.cover,
@@ -134,8 +137,13 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                     color: Colors.orange,
                                                   ),
                                                   const SizedBox(width: 5),
-                                                  Text(
-                                                      'Popularity: ${movieDetails.popularity}'),
+                                                  SizedBox(
+                                                    width: 110,
+                                                    child: Text(
+                                                      'Popularity: ${movieDetails.popularity}',
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                               const SizedBox(height: 10),
@@ -146,19 +154,76 @@ class _MovieDetailsState extends State<MovieDetails> {
                                                   fontSize: 16,
                                                 ),
                                               ),
-
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'Original Language: ${movieDetails.originalLanguage}',
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                'Adult: ${movieDetails.adult ? 'Yes' : 'No'}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 25,
+                                    ),
+                                    child: Text(
+                                      'Similar Movies',
+                                      style: TextStyle(
+                                        color: Color(0xFFE2B616),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  isLoading
+                                      ? LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            double gridHeight =
+                                                (constraints.maxWidth / 5) *
+                                                    1.25 *
+                                                    3;
+                                            return SizedBox(
+                                              height: gridHeight,
+                                              child:
+                                                  const PopularMoviesSkeleton(),
+                                            );
+                                          },
+                                        )
+                                      : LayoutBuilder(
+                                          builder: (context, constraints) {
+                                            double gridHeight =
+                                                (constraints.maxWidth / 5) *
+                                                    1.25 *
+                                                    (similarMovies.length / 5);
+                                            return SizedBox(
+                                              height: gridHeight,
+                                              child: PopularMoviesView(
+                                                popularMovies: similarMovies,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                 ],
                               ),
                             ),
                           ],
                         ),
                       ),
+                      const Footer(),
                     ],
                   ),
                 )
