@@ -18,7 +18,7 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
     return GridView.builder(
       itemCount: widget.popularMovies.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 5,
+        crossAxisCount: 4,
         childAspectRatio: 0.8,
       ),
       itemBuilder: (context, index) {
@@ -66,9 +66,9 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 8),
                       Expanded(
                         child: ListView(
-                          padding: const EdgeInsets.all(8),
                           children: [
                             Text(
                               movie.title,

@@ -122,29 +122,17 @@ class _HomePageState extends State<HomePage> {
             // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: isLoading
-                  ? LayoutBuilder(
-                      builder: (context, constraints) {
-                        double gridHeight =
-                            (constraints.maxWidth / 5) * 1.25 * 3;
-                        return SizedBox(
-                          height: gridHeight,
-                          child: const PopularMoviesSkeleton(),
-                        );
-                      },
-                    )
-                  : LayoutBuilder(
-                      builder: (context, constraints) {
-                        double gridHeight =
-                            (constraints.maxWidth / 5) * 1.25 * (popularMovies.length / 5);
-                        return SizedBox(
-                          height: gridHeight,
-                          child: PopularMoviesView(
-                            popularMovies: popularMovies,
-                          ),
-                        );
-                      },
-                    ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  double gridHeight = (constraints.maxWidth / 4) * 1.4 * 3;
+                  return SizedBox(
+                    height: gridHeight,
+                    child: isLoading
+                        ? const PopularMoviesSkeleton()
+                        : PopularMoviesView(popularMovies: popularMovies),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 8),
             const Footer(),
