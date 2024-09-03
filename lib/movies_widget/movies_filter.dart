@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../models/movie_model.dart';
 
 class MoviesFilter extends StatefulWidget {
@@ -7,6 +6,8 @@ class MoviesFilter extends StatefulWidget {
   final List<Movie> nowPlayingMovies;
   final List<Movie> popularMovies;
   final List<Movie> upcomingMovies;
+  final List<Movie> currentMovies;
+  final Function callback;
   int selectedFilterIndex;
 
   MoviesFilter({
@@ -15,6 +16,8 @@ class MoviesFilter extends StatefulWidget {
     required this.nowPlayingMovies,
     required this.popularMovies,
     required this.upcomingMovies,
+    required this.currentMovies,
+    required this.callback,
     this.selectedFilterIndex = 0,
   });
 
@@ -36,10 +39,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
           children: [
             GestureDetector(
               onTap: () {
-                setState(() {
-                  widget.selectedFilterIndex = 0;
-                  movies = widget.popularMovies;
-                });
+                widget.callback(0, widget.popularMovies);
               },
               child: Container(
                 padding:
@@ -65,10 +65,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  widget.selectedFilterIndex = 1;
-                  movies = widget.nowPlayingMovies;
-                });
+                widget.callback(1, widget.nowPlayingMovies);
               },
               child: Container(
                 padding:
@@ -94,10 +91,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  widget.selectedFilterIndex = 2;
-                  movies = widget.upcomingMovies;
-                });
+                widget.callback(2, widget.upcomingMovies);
               },
               child: Container(
                 padding:
@@ -123,10 +117,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                setState(() {
-                  widget.selectedFilterIndex = 3;
-                  movies = widget.topRatedMovies;
-                });
+                widget.callback(3, widget.topRatedMovies);
               },
               child: Container(
                 padding:

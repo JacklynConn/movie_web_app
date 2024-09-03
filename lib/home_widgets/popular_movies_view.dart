@@ -18,7 +18,7 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
     return GridView.builder(
       itemCount: widget.popularMovies.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: 5,
         childAspectRatio: 0.8,
       ),
       itemBuilder: (context, index) {
@@ -74,33 +74,36 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
                       ),
                       const SizedBox(height: 8),
                       Expanded(
-                        child: ListView(
-                          children: [
-                            Text(
-                              movie.title,
-                              style: const TextStyle(
-                                color: Color(0xFFE2B616),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: ListView(
+                            children: [
+                              Text(
+                                movie.title,
+                                style: const TextStyle(
+                                  color: Color(0xFFE2B616),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                maxLines: 2,
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star, color: Colors.amber),
+                                  const SizedBox(width: 5),
+                                  Text(movie.voteAverage.toString())
+                                ],
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Language: ${movie.originalLanguage}',
+                                maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 2,
-                            ),
-                            Row(
-                              children: [
-                                const Icon(Icons.star, color: Colors.amber),
-                                const SizedBox(width: 5),
-                                Text(movie.voteAverage.toString())
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Language: ${movie.originalLanguage}',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text('Adult: ${movie.adult ? 'Yes' : 'No'}'),
-                          ],
+                              Text('Adult: ${movie.adult ? 'Yes' : 'No'}'),
+                            ],
+                          ),
                         ),
                       ),
                     ],

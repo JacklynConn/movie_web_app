@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
 import 'package:flutter_web_app/widgets/drawer.dart';
 import 'package:flutter_web_app/widgets/navbar.dart';
+import 'package:flutter_web_app/widgets/skeleton/footer.dart';
+import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
+import 'home_widgets/popular_movies_view.dart';
 import 'models/movie_model.dart';
 import 'movies_widget/movies_filter.dart';
 
@@ -18,7 +21,16 @@ class _MoviesPageState extends State<MoviesPage> {
   List<Movie> nowPlayingMovies = [];
   List<Movie> popularMovies = [];
   List<Movie> upcomingMovies = [];
+  List<Movie> currentMovies = [];
+  int selectedFilterIndex = 0;
   bool isLoading = true;
+
+  void callback(int index, List<Movie> movies) {
+    setState(() {
+      selectedFilterIndex = index;
+      currentMovies = movies;
+    });
+  }
 
   @override
   void initState() {
@@ -32,6 +44,7 @@ class _MoviesPageState extends State<MoviesPage> {
     nowPlayingMovies = await movieServices.fetchNowPlayingMovies();
     popularMovies = await movieServices.fetchPopularMovies();
     upcomingMovies = await movieServices.fetchUpComingMovies();
+    currentMovies = popularMovies;
     setState(() {
       isLoading = false;
     });
@@ -43,11 +56,67 @@ class _MoviesPageState extends State<MoviesPage> {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: const CustomNavbar(),
-      body: MoviesFilter(
-        topRatedMovies: topRatedMovies,
-        nowPlayingMovies: nowPlayingMovies,
-        popularMovies: popularMovies,
-        upcomingMovies: upcomingMovies,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Text(
+                      'Explore Movies',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFFE2B616),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  MoviesFilter(
+                    topRatedMovies: topRatedMovies,
+                    nowPlayingMovies: nowPlayingMovies,
+                    popularMovies: popularMovies,
+                    upcomingMovies: upcomingMovies,
+                    currentMovies: currentMovies,
+                    callback: callback,
+                    selectedFilterIndex: selectedFilterIndex,
+                  ),
+                  isLoading
+                      ? LayoutBuilder(
+                          builder: (context, constraints) {
+                            double gridHeight =
+                                (constraints.maxWidth / 5) * 1.25 * 3;
+                            return SizedBox(
+                              height: gridHeight,
+                              child: isLoading
+                                  ? const PopularMoviesSkeleton()
+                                  : PopularMoviesView(popularMovies: popularMovies),
+                            );
+                          },
+                        )
+                      : LayoutBuilder(
+                          builder: (context, constraints) {
+                            double gridHeight = (constraints.maxWidth / 5) *
+                                1.25 *
+                                (popularMovies.length / 5);
+                            return SizedBox(
+                              height: gridHeight,
+                              child: isLoading
+                                  ? const PopularMoviesSkeleton()
+                                  : PopularMoviesView(popularMovies: currentMovies),
+                            );
+                          },
+                        ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+            const Footer(),
+          ],
+        ),
       ),
     );
   }

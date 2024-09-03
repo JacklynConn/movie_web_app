@@ -75,7 +75,8 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.only(left: 16),
                       child: isLoading
                           ? const CarouselSkeleton()
-                          : CustomCarouselSlider(topRatedMovies: topRatedMovies),
+                          : CustomCarouselSlider(
+                              topRatedMovies: topRatedMovies),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -125,17 +126,32 @@ class _HomePageState extends State<HomePage> {
             // SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  double gridHeight = (constraints.maxWidth / 4) * 1.4 * 3;
-                  return SizedBox(
-                    height: gridHeight,
-                    child: isLoading
-                        ? const PopularMoviesSkeleton()
-                        : PopularMoviesView(popularMovies: popularMovies),
-                  );
-                },
-              ),
+              child: isLoading
+                  ? LayoutBuilder(
+                      builder: (context, constraints) {
+                        double gridHeight =
+                            (constraints.maxWidth / 5) * 1.25 * 3;
+                        return SizedBox(
+                          height: gridHeight,
+                          child: isLoading
+                              ? const PopularMoviesSkeleton()
+                              : PopularMoviesView(popularMovies: popularMovies),
+                        );
+                      },
+                    )
+                  : LayoutBuilder(
+                      builder: (context, constraints) {
+                        double gridHeight = (constraints.maxWidth / 5) *
+                            1.25 *
+                            (popularMovies.length / 5);
+                        return SizedBox(
+                          height: gridHeight,
+                          child: isLoading
+                              ? const PopularMoviesSkeleton()
+                              : PopularMoviesView(popularMovies: popularMovies),
+                        );
+                      },
+                    ),
             ),
             const SizedBox(height: 8),
             const Footer(),
