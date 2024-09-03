@@ -87,6 +87,43 @@ class MovieServices {
     }
   }
 
+  Future<Movie> fetchMovieById(String id) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl$id?language=en-US'),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        return Movie.fromJson(jsonDecode(response.body));
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch top rated movies');
+    }
+  }
+
+  Future<List<Movie>> fetchSimilarMovies(String id) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$baseUrl$id/similar?language=en-US&page=1'),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        print(response.body);
+        return ((jsonDecode(response.body)['results']) as List)
+            .map((data) => Movie.fromJson(data))
+            .toList();
+      } else {
+        throw Exception('Failed to fetch top rated movies');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch top rated movies');
+    }
+  }
+
   Future<List<Movie>> searchMovies(String query) async {
     try {
       final response = await http.get(
