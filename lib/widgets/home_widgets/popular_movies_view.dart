@@ -3,16 +3,16 @@ import 'package:flutter_web_app/responsive.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/movie_model.dart';
 
-class PopularMoviesView extends StatefulWidget {
-  final List<Movie> popularMovies;
+class MovieGridView extends StatefulWidget {
+  final List<Movie> movies;
 
-  const PopularMoviesView({super.key, required this.popularMovies});
+  const MovieGridView({super.key, required this.movies});
 
   @override
-  State<PopularMoviesView> createState() => _PopularMoviesViewState();
+  State<MovieGridView> createState() => _MovieGridViewState();
 }
 
-class _PopularMoviesViewState extends State<PopularMoviesView> {
+class _MovieGridViewState extends State<MovieGridView> {
   int? hoverIndex;
 
   @override
@@ -20,17 +20,17 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: widget.popularMovies.length,
+      itemCount: widget.movies.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: const Responsive().isMobile(context)
             ? 2
             : const Responsive().isTablet(context)
-                ? 3
-                : 5,
-        childAspectRatio: 0.8,
+            ? 3
+            : 5,
+        childAspectRatio: const Responsive().isMobile(context) ? 0.7 : 0.8,
       ),
       itemBuilder: (context, index) {
-        final movie = widget.popularMovies[index];
+        final movie = widget.movies[index];
         return MouseRegion(
           onEnter: (_) {
             setState(() {
@@ -51,8 +51,8 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
             duration: const Duration(milliseconds: 100),
             transform: hoverIndex == index
                 ? (Matrix4.identity()
-                  ..scale(1.05, 1.05)
-                  ..translate(0, -10))
+              ..scale(1.05, 1.05)
+              ..translate(0, -10))
                 : Matrix4.identity(),
             child: GestureDetector(
               onTap: () {
