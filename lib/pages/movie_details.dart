@@ -48,24 +48,112 @@ class _MovieDetailsState extends State<MovieDetails> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 400,
+                        height: 3000,
                         child: Stack(
                           children: [
-                            Image.network(
-                              'https://image.tmdb.org/t/p/w500/${movieDetails.posterPath}',
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.black,
-                                    Colors.transparent,
-                                  ],
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 400,
+                                  child: Stack(
+                                    children: [
+                                      Image.network(
+                                        'https://image.tmdb.org/t/p/original${movieDetails.backdropPath}',
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
+                              ],
+                            ),
+                            Positioned(
+                              top: 300,
+                              left: 20,
+                              right: 20,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          'https://image.tmdb.org/t/p/w500${movieDetails.posterPath}',
+                                          width: 150,
+                                          // height: 200,
+                                          // fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Expanded(
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                movieDetails.originalTitle,
+                                                style: const TextStyle(
+                                                  color: Color(0xFFE2B616),
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                  'Release Date: ${movieDetails.releaseDate}'),
+                                              const SizedBox(height: 10),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Text(
+                                                    'Vote Count: ${movieDetails.voteCount}',
+                                                  ),
+                                                  const SizedBox(width: 10),
+                                                  const Icon(
+                                                    Icons.trending_up,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  const SizedBox(width: 5),
+                                                  Text(
+                                                      'Popularity: ${movieDetails.popularity}'),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                movieDetails.overview,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ],
