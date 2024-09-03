@@ -36,9 +36,10 @@ class _MoviesFilterState extends State<MoviesFilter> {
           children: [
             GestureDetector(
               onTap: () {
-                widget.selectedFilterIndex = 0;
-                movies = widget.topRatedMovies;
-                setState(() {});
+                setState(() {
+                  widget.selectedFilterIndex = 0;
+                  movies = widget.popularMovies;
+                });
               },
               child: Container(
                 padding:
@@ -64,9 +65,10 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                widget.selectedFilterIndex = 1;
-                movies = widget.nowPlayingMovies;
-                setState(() {});
+                setState(() {
+                  widget.selectedFilterIndex = 1;
+                  movies = widget.nowPlayingMovies;
+                });
               },
               child: Container(
                 padding:
@@ -92,9 +94,10 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                widget.selectedFilterIndex = 2;
-                movies = widget.popularMovies;
-                setState(() {});
+                setState(() {
+                  widget.selectedFilterIndex = 2;
+                  movies = widget.upcomingMovies;
+                });
               },
               child: Container(
                 padding:
@@ -106,7 +109,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'Top Rated',
+                  'Upcoming',
                   style: TextStyle(
                     color: widget.selectedFilterIndex == 2
                         ? const Color(0xFFE2B616)
@@ -120,9 +123,10 @@ class _MoviesFilterState extends State<MoviesFilter> {
             const SizedBox(width: 5),
             GestureDetector(
               onTap: () {
-                widget.selectedFilterIndex = 3;
-                movies = widget.upcomingMovies;
-                setState(() {});
+                setState(() {
+                  widget.selectedFilterIndex = 3;
+                  movies = widget.topRatedMovies;
+                });
               },
               child: Container(
                 padding:
@@ -134,7 +138,7 @@ class _MoviesFilterState extends State<MoviesFilter> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'Upcoming',
+                  'Top Rated',
                   style: TextStyle(
                     color: widget.selectedFilterIndex == 3
                         ? const Color(0xFFE2B616)

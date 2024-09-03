@@ -41,15 +41,13 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
-      appBar: CustomNavbar(),
-      body: Center(
-        child: MoviesFilter(
-          topRatedMovies: topRatedMovies,
-          nowPlayingMovies: nowPlayingMovies,
-          popularMovies: popularMovies,
-          upcomingMovies: upcomingMovies,
-        ),
+      drawer: const CustomDrawer(),
+      appBar: const CustomNavbar(),
+      body: MoviesFilter(
+        topRatedMovies: topRatedMovies,
+        nowPlayingMovies: nowPlayingMovies,
+        popularMovies: popularMovies,
+        upcomingMovies: upcomingMovies,
       ),
     );
   }
