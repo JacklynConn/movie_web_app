@@ -9,8 +9,8 @@ import 'package:flutter_web_app/widgets/skeleton/footer.dart';
 import 'package:flutter_web_app/widgets/skeleton/now_playing_skeleton.dart';
 import 'package:flutter_web_app/widgets/skeleton/popular_movies_skeleton.dart';
 
-import 'home_widgets/now_playing_list.dart';
-import 'home_widgets/popular_movies_view.dart';
+import '../home_widgets/now_playing_list.dart';
+import '../home_widgets/popular_movies_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_app/main.dart';
 import 'package:flutter_web_app/models/movie_model.dart';
 import 'package:flutter_web_app/services/movie_services.dart';
 import 'package:flutter_web_app/widgets/skeleton/footer.dart';
+import 'package:go_router/go_router.dart';
 
 class SearchPage extends StatefulWidget {
   final String query;
@@ -55,7 +57,9 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         elevation: 6,
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            context.go('/movie/${movie.id}');
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Row(

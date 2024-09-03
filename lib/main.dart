@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_app/home_page.dart';
-import 'package:flutter_web_app/movies_page.dart';
-import 'package:flutter_web_app/search.dart';
+import 'package:flutter_web_app/pages/home_page.dart';
+import 'package:flutter_web_app/pages/movie_details.dart';
+import 'package:flutter_web_app/pages/movies_page.dart';
+import 'package:flutter_web_app/pages/search.dart';
 import 'package:go_router/go_router.dart';
 
 void main() {
@@ -20,6 +21,13 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           final String query = state.pathParameters['query']!;
           return SearchPage(query: query);
+        },
+      ),
+      GoRoute(
+        path: '/movie/:id',
+        builder: (context, state) {
+          final String id = state.pathParameters['id']!;
+          return MovieDetails(movieId: id);
         },
       ),
     ],
