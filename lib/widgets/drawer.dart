@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -15,7 +16,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
         children: [
           const SizedBox(height: 15),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go('/');
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -30,7 +33,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           ),
           const SizedBox(height: 15),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go('/movies_page');
+            },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
