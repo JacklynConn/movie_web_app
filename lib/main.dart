@@ -12,8 +12,16 @@ class MyApp extends StatelessWidget {
   final GoRouter _router = GoRouter(
     routes: [
       GoRoute(path: '/', builder: (context, state) => const HomePage()),
-      GoRoute(path: '/movies_page', builder: (context, state) => const MoviesPage()),
-      GoRoute(path: '/search_page', builder: (context, state) => const SearchPage()),
+      GoRoute(
+          path: '/movies_page',
+          builder: (context, state) => const MoviesPage()),
+      GoRoute(
+        path: '/search/:query',
+        builder: (context, state) {
+          final String query = state.pathParameters['query']!;
+          return SearchPage(query: query);
+        },
+      ),
     ],
   );
 
