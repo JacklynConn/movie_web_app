@@ -1,6 +1,11 @@
 # flutter_web_app
 Link go to web app: https://movie-web-app-829ca.web.app/
-![image](https://github.com/user-attachments/assets/2e864006-4b21-4cc5-a299-7c668b8fd5bd)
+
+![image](https://github.com/user-attachments/assets/60c354c3-bc7a-4bad-a134-eb9bebf50ccd)
+![image](https://github.com/user-attachments/assets/8832d1f9-38de-47e5-86af-922cb832df42)
+![image](https://github.com/user-attachments/assets/3b272fad-3a50-4f6d-963e-705ecbc13f69)
+
+
 
 A new Flutter project.
 
