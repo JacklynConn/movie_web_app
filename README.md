@@ -2,7 +2,6 @@
 Link go to web app: https://movie-web-app-829ca.web.app/
 
 ![image](https://github.com/user-attachments/assets/60c354c3-bc7a-4bad-a134-eb9bebf50ccd)
-![image](https://github.com/user-attachments/assets/8832d1f9-38de-47e5-86af-922cb832df42)
 ![image](https://github.com/user-attachments/assets/3b272fad-3a50-4f6d-963e-705ecbc13f69)
 ![image](https://github.com/user-attachments/assets/356c5aae-1140-46e9-adb6-58979328ef73)
 ![image](https://github.com/user-attachments/assets/aa237ef7-7055-4d2a-a769-0e16e65eb4e3)
